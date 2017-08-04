@@ -67,7 +67,8 @@ namespace argparse {
 
         std::stringstream wrapped_ss;
         bool first = true;
-        for(const auto& line : wrap_width(ss.str(), total_width_ - prefix_len, {" [", " -"})) {
+        std::array<std::string,2> split_str={" [", " -"};
+        for(const auto& line : wrap_width(ss.str(), total_width_ - prefix_len, split_str)) {
             if(!first) {
                 //pass
                 wrapped_ss << std::string(prefix_len, ' ');
@@ -85,7 +86,8 @@ namespace argparse {
 
         std::stringstream ss;
         ss << "\n";
-        for(auto& line : wrap_width(parser_->description(), total_width_)) {
+        std::array<std::string,2> split_str={" ", "/"};
+        for(auto& line : wrap_width(parser_->description(), total_width_, split_str)) {
             ss << line;
         }
         ss << "\n";
@@ -132,7 +134,8 @@ namespace argparse {
                     }
                     
                     //Argument help
-                    auto help_lines = wrap_width(arg->help(), total_width_ - option_name_width_);
+                    std::array<std::string,2> split_str={" ", "/"};
+                    auto help_lines = wrap_width(arg->help(), total_width_ - option_name_width_, split_str);
                     for (auto& line : help_lines) {
                         //Pad out the help
                         assert(pos <= option_name_width_);
@@ -155,8 +158,8 @@ namespace argparse {
                 }
                 if (!group.epilog().empty()) {
                     ss << "\n";
-
-                    auto epilog_lines = wrap_width(group.epilog(), total_width_ - INDENT.size());
+                    std::array<std::string,2> split_str={" ", "/"};
+                    auto epilog_lines = wrap_width(group.epilog(), total_width_ - INDENT.size(), split_str);
                     for (auto& line : epilog_lines) {
                         ss << INDENT << line;
                     }
@@ -173,7 +176,8 @@ namespace argparse {
 
         std::stringstream ss;
         ss << "\n";
-        for(auto& line : wrap_width(parser_->epilog(), total_width_)) {
+        std::array<std::string,2> split_str={" ", "/"};
+        for(auto& line : wrap_width(parser_->epilog(), total_width_, split_str)){
             ss << line;
         }
         ss << "\n";
