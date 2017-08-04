@@ -50,7 +50,7 @@ namespace argparse {
         return res;
     }
 
-    std::vector<std::string> wrap_width(std::string str, size_t width, std::vector<std::string> break_strs) {
+    std::vector<std::string> wrap_width(std::string str, size_t width, std::array<std::string,2> break_strs) {
         std::vector<std::string> wrapped_lines;
 
         size_t start = 0;
